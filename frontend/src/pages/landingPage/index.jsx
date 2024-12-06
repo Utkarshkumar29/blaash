@@ -100,7 +100,7 @@ const LandingPage = () => {
   const handleSaveLayout = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/save-layout",
+        "https://blaash-ho2n.onrender.com/api/save-layout",
         {
           userId,
           layout: playlists,
@@ -119,7 +119,7 @@ const LandingPage = () => {
   const handleLoadLayout = async (userId) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/load-layout?userId=${userId}`
+        `https://blaash-ho2n.onrender.com/api/load-layout?userId=${userId}`
       )
       if (response.status === 200) {
         const layout = response.data.layout

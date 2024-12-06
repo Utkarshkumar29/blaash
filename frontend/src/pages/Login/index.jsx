@@ -24,7 +24,7 @@ const Login = () => {
       setIsLoading(true);
       const data = { email, password };
       const response = await axios.post(
-        "http://localhost:5000/api/user/login",
+        "https://blaash-ho2n.onrender.com/api/user/login",
         data
       );
       if (response.status === 200) {
@@ -42,7 +42,7 @@ const Login = () => {
     try {
       const data = { email, password, otp: otpValue };
       const response = await axios.post(
-        "http://localhost:5000/api/user/verify-otp",
+        "https://blaash-ho2n.onrender.com/api/user/verify-otp",
         data
       );
       if (response.status === 200) {

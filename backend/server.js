@@ -9,6 +9,14 @@ app.get('/', (req, res) => {
     res.send("Hello World");
 });
 
+
+app.use(cors({
+    origin: ["https://blaash-umber.vercel.app", "http://localhost:3000"],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Origin", "Content-Type", "Accept", "Authorization", "X-Requested-With"],
+}));
+
 require('dotenv').config();
 
 app.use(express.json());

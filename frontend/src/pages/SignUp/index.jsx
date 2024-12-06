@@ -21,7 +21,7 @@ const SignUp = () => {
         image: image,
       };
       const response = await axios.post(
-        "http://localhost:5000/api/user/signUp",
+        "https://blaash-ho2n.onrender.com/api/user/signUp",
         data
       );
       if (response.status == 200) {
