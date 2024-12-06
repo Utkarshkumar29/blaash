@@ -5,8 +5,9 @@ const jwt = require('jsonwebtoken')
 const nodemailer = require('nodemailer')
 const path=require('path')
 const fs = require('fs')
+require('dotenv').config();
 
-const JWT_SECRET = process.env.JWT_SECRET || "blaash"
+const JWT_SECRET = process.env.JWT_SECRET
 
 const generateOTP = () => {
     return Math.floor(100000 + Math.random() * 900000).toString()
@@ -15,8 +16,8 @@ const generateOTP = () => {
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'ukyp2014@gmail.com',
-      pass: 'xmle aiox fctk hplm'
+      user: process.env.DEV_MAIL,
+      pass: process.env.DEV_MAIL_KEY
     }
   })
 

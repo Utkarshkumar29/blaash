@@ -130,7 +130,7 @@ const LandingPage = () => {
     }
   }
 
-  if (token == "") {
+  if (token == "" || userId=="") {
     return <Navigate to="/login" />
   }
 

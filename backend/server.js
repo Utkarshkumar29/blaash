@@ -9,6 +9,8 @@ app.get('/', (req, res) => {
     res.send("Hello World");
 });
 
+require('dotenv').config();
+
 app.use(express.json());
 app.use(cors())
 app.use('/api/user', userRoutes);
@@ -23,6 +25,6 @@ mongoose.connect('mongodb+srv://MERN:OabOhihuXOjL2fRB@cluster0.tiglnj5.mongodb.n
     console.log(error);
 });
 
-app.listen(5000, () => {
+app.listen(process.env.PORT, () => {
     console.log("Server is running on port 5000");
 });

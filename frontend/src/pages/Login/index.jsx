@@ -83,7 +83,7 @@ const Login = () => {
           className="flex items-center justify-center rounded-lg bg-blue-500 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-400"
         >
           {isLoading ? (
-            <i className="fas fa-spinner fa-spin text-white"></i>
+            "Loading..."
           ) : (
             "Login"
           )}
