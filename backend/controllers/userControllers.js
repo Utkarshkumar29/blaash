@@ -65,10 +65,10 @@ var transporter = nodemailer.createTransport({
                     })
                 })
             } else {
-                return res.status(422).json({ error: 'Password incorrect' })
+                return res.status(401).json({ error: 'Password incorrect' })
             }
         } else {
-            return res.status(404).json({ error: 'User not found' })
+            return res.status(401).json({ error: 'User not found' })
         }
     } catch (error) {
         console.error('Error logging in:', error)
@@ -100,7 +100,7 @@ const VerifyOtp = async (req, res) => {
                     token: token
                 })
             } else {
-                return res.status(400).json({ error: 'Invalid OTP or OTP expired' })
+                return res.status(401).json({ error: 'Invalid OTP or OTP expired' })
             }
         } else {
             return res.status(404).json({ error: 'User not found' })

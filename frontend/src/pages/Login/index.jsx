@@ -8,6 +8,7 @@ import {
   DialogPanel,
   DialogTitle,
 } from "@headlessui/react";
+import InputField from "../../components/inputField";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -17,6 +18,8 @@ const Login = () => {
   const [redirect, setRedirect] = useState(false);
   const [otpModal, setOtpModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error,setError] = useState(false);
+  const [otpError, setOtpError] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -27,15 +30,21 @@ const Login = () => {
         "https://blaash-ho2n.onrender.com/api/user/login",
         data
       );
+
       if (response.status === 200) {
         setOtpModal(true);
       }
     } catch (error) {
-      console.error(error);
+      if (error.response && error.response.status === 401) {
+        setError(error.response.data.error);
+      } else {
+        setError("An unexpected error occurred. Please try again.");
+      }
     } finally {
       setIsLoading(false);
     }
   };
+
 
   const handleOtp = async (e) => {
     e.preventDefault();
@@ -51,7 +60,11 @@ const Login = () => {
         setRedirect(true);
       }
     } catch (error) {
-      console.error(error);
+      if (error.response && error.response.status === 401) {
+        setOtpError(error.response.data.error);
+      } else {
+        setOtpError("An unexpected error occurred. Please try again.");
+      }
     }
   };
 
@@ -63,21 +76,22 @@ const Login = () => {
     <div className="w-full h-screen bg-[#1b1b22] flex justify-center items-center ">
       <form
         onSubmit={handleLogin}
-        className="w-[400px] h-[324px] flex flex-col gap-6 rounded-xl border border-[#35373b] bg-[#1E1E2F] p-6 text-center text-white shadow-lg"
+        className="w-[400px] h-min flex flex-col gap-6 rounded-xl border border-[#35373b] bg-[#1E1E2F] p-6 text-center text-white shadow-lg"
       >
         <p className="text-3xl font-bold">Blaash Login</p>
-        <input
-          type="email"
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full rounded-lg border border-gray-600 bg-[#2A2A40] px-4 py-2 text-white placeholder-gray-500 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:outline-none"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full rounded-lg border border-gray-600 bg-[#2A2A40] px-4 py-2 text-white placeholder-gray-500 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:outline-none"
-        />
+        <InputField
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <InputField
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      {error && <p className=" text-red-400 text-left ">{error}</p>}
         <button
           type="submit"
           className="flex items-center justify-center rounded-lg bg-blue-500 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-400"
@@ -119,6 +133,7 @@ const Login = () => {
                 required
                 className="w-full outline-none rounded-lg border border-gray-600 bg-[#2A2A40] px-4 py-2 text-white placeholder-gray-500 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:outline-none"
               />
+              {otpError && <p className=" text-red-500 text-left ">{otpError}</p>}
               <div className="flex gap-4">
                 <button
                   type="button"
